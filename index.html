@@ -34,13 +34,26 @@
 
                     var chartRain = new Chart($("#chart-rain"), {
                         type: 'line',
+                        options: {
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        maxRotation: 45,
+                                        minRotation: 45
+                                    }
+                                },
+                                y: {
+                                    min: 0
+                                }
+                            }
+                        },
                         data: {
                             labels: labels,
                             datasets: [{
                                 label: 'Rain',
                                 data: dataRain,
                                 fill: true,
-                                backgroundColor: 'rgba(167, 199, 231, 0.5)',
+                                backgroundColor: 'rgba(167, 199, 231, 0.6)',
                                 tension: 0.1
                             }]
                         }
