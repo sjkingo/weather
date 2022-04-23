@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Weather</title>
+        <style type="text/css">
+            body {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container"></div>
+            <canvas id="chart-rain"></canvas>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(function() {
+                $.getJSON("data/weather.json", function(data) {
+                    console.log(data);
+                    var labels = data.map(function(e) {
+                        // date only
+                        return e.timestamp.split("T")[0];
+                    });
+                    var dataRain = data.map(function(e) {
+                        return e.rain;
+                    });
+
+                    var chartRain = new Chart($("#chart-rain"), {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Rain',
+                                data: dataRain,
+                                fill: true,
+                                backgroundColor: 'rgba(167, 199, 231, 0.5)',
+                                tension: 0.1
+                            }]
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
